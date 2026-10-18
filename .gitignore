@@ -1,0 +1,21 @@
+# Entorno virtual de Python
+.venv/
+venv/
+env/
+
+# Archivos compilados y caché de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Base de datos local (para no subir los gastos reales a GitHub)
+*.db
+*.sqlite3
+data/*.db
+
+# Archivos ocultos del sistema operativo (macOS / Windows)
+.DS_Store
+Thumbs.db
+
+# Configuración de VS Code local
+.vscode/
