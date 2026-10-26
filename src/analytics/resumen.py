@@ -20,9 +20,9 @@ class ResumenService:
         return {
             "Mes": mes,
             "Año": ano,
-            "Gastos Fijos": resumen_mensual_fijo,
-            "Gastos Tickets": resumen_mensual_tickets,
-            "Total general": resumen_mensual
+            "Gastos_Fijos": resumen_mensual_fijo,
+            "Gastos_Tickets": resumen_mensual_tickets,
+            "Total_general": resumen_mensual
         }
     
 if __name__ == "__main__":
