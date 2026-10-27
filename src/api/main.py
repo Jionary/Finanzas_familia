@@ -49,4 +49,6 @@ def crear_ticket(ticket_in: TicketCreate) -> Dict[str,Any]:
     return {"Tu ticket se guardo con éxito y tiene el id" : ticket_id}
 
 
+
+
     

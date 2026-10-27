@@ -7,9 +7,20 @@
     <title>Dashboard general</title>
   </head>
   <body class="bg-slate-50 min-h-screen flex items-center justify-center px-4">
-    <div id="Total"></div>
-    <div id="Gastos-fijos"></div>
-    <div id="Gastos-tickets"></div>
+    <div class="w-full max-w-md flex flex-col gap-8">
+      <h1
+        class="text-3xl font-extrabold text-slate-800 text-center mb-10 tracking-tight"
+        id="Titulo-dashboard"
+      ></h1>
+      <div class="grid gap-4">
+        <div class="bg-white rounded-2xl shadow-md p-6" id="Total"></div>
+        <div class="bg-white rounded-2xl shadow-md p-6" id="Gastos-fijos"></div>
+        <div
+          class="bg-white rounded-2xl shadow-md p-6"
+          id="Gastos-tickets"
+        ></div>
+      </div>
+    </div>
     <script src="dashboard.js"></script>
   </body>
 </html>
