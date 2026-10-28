@@ -28,6 +28,27 @@ class GastoFijoRepository:
                         activo=gasto[7]
                     ))
         return gastos_activos
+    
+    def obtener_gastos_usuario(self, usuario_id: int):
+        with get_connection() as conn:
+            consulta_gastos_fijos_usuario = conn.execute("SELECT * FROM gastos_fijos WHERE usuario_id = ? AND activo = 1", (usuario_id,))
+            gastos_usuario_extraidos = consulta_gastos_fijos_usuario.fetchall()
+
+        
+        gastos_usuario = []
+        for gasto in gastos_usuario_extraidos:
+            gastos_usuario.append(GastoFijo(
+                id=gasto[0],
+                usuario_id=gasto[1],
+                categoria_id=gasto[2],
+                concepto=gasto[3],
+                monto=gasto[4],
+                frecuencia=gasto[5],
+                dia_pago=gasto[6],
+                activo=gasto[7]        
+            ))
+        return gastos_usuario
+            
 
 if __name__ == "__main__":
     repo = GastoFijoRepository()

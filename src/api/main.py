@@ -3,6 +3,7 @@ from src.analytics.resumen import ResumenService
 from typing import Dict, Any
 from src.models.tickets import Ticket, Item
 from src.database.tickets import TicketRepository
+from src.database.gastos_fijos import GastoFijoRepository
 from src.api.schemas.tickets import TicketCreate
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -16,6 +17,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"],
                    allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 resumen = ResumenService()
 ticket_repo = TicketRepository()
+gastos_repo = GastoFijoRepository()
 
 @app.get("/")
 def health() -> Dict[str, Any]:
@@ -47,6 +49,11 @@ def crear_ticket(ticket_in: TicketCreate) -> Dict[str,Any]:
         items=items)
     ticket_id = ticket_repo.guardar(ticket_guardar)
     return {"Tu ticket se guardo con éxito y tiene el id" : ticket_id}
+
+@app.get("/api/v1/gastos-fijos/{usuario_id}")
+def traer_gastos_usuario(usuario_id: int) -> Dict[str, Any]:
+    gastos_usuario = gastos_repo.obtener_gastos_usuario(usuario_id)
+    return {"Gastos fijos mensuales": sum(gasto_usuario.monto for gasto_usuario in gastos_usuario)}
 
 
 

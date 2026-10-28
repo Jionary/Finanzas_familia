@@ -59,6 +59,17 @@ class TicketRepository:
             tickets_mes.append(self.obtener_por_id(ticket_id))
         return tickets_mes
 
+    def obtener_tickets_usuario(self, usuario_id: int) -> List[Ticket]:
+        with get_connection() as conn:
+            consulta_tickets_usuario = conn.execute("SELECT * FROM tickets WHERE usuario_id = ?", (usuario_id,))
+            tickets_usuario_extraidos = consulta_tickets_usuario.fetchall()
+        
+        tickets_usuario = []
+        for ticket in tickets_usuario_extraidos:
+            ticket_id = ticket[0]
+            tickets_usuario.append(self.obtener_por_id(ticket_id))
+        return tickets_usuario
+
 
 if __name__ == "__main__":
     item1 = Item("Videojuego", 2, 500, 3)
