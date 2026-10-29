@@ -1,5 +1,4 @@
 const titleDashboard = document.getElementById("Titulo-dashboard");
-
 async function dashboard() {
   const hoy = new Date();
   const mesActual = hoy.getMonth() + 1;
@@ -22,4 +21,5 @@ async function dashboard() {
   document.getElementById("Gastos-tickets").innerText =
     "$" + dataJson.Gastos_Tickets;
 }
+
 dashboard();
