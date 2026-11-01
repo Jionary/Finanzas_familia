@@ -3,7 +3,7 @@ async function dashboard() {
   const hoy = new Date();
   const mesActual = hoy.getMonth() + 1;
   const anoActual = hoy.getFullYear();
-  const rutaApi = `http://192.168.1.178:8000/api/v1/resumen?mes=${mesActual}&ano=${anoActual}`;
+  const rutaApi = `http://localhost:8000/api/v1/resumen?mes=${mesActual}&ano=${anoActual}`;
   if (localStorage.usuario_id == 1) {
     titleDashboard.textContent = "Bienvenido Papá";
   } else if (localStorage.usuario_id == 2) {

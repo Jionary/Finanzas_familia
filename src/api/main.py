@@ -50,12 +50,14 @@ def crear_ticket(ticket_in: TicketCreate) -> Dict[str,Any]:
     ticket_id = ticket_repo.guardar(ticket_guardar)
     return {"Tu ticket se guardo con éxito y tiene el id" : ticket_id}
 
-@app.get("/api/v1/gastos-fijos/{usuario_id}")
+@app.get("/api/v1/gastos-fijos/usuario/{usuario_id}")
 def traer_gastos_usuario(usuario_id: int) -> Dict[str, Any]:
     gastos_usuario = gastos_repo.obtener_gastos_usuario(usuario_id)
-    return {"Gastos fijos mensuales": sum(gasto_usuario.monto for gasto_usuario in gastos_usuario)}
+    return {"gastos_fijos_mensuales": sum(gasto_usuario.monto for gasto_usuario in gastos_usuario)}
 
-
-
+@app.get("/api/v1/tickets/usuario/{usuario_id}")
+def traer_tickets_usuario(usuario_id:int) -> Dict[str, Any]:
+    tickets_usuario = ticket_repo.obtener_tickets_usuario(usuario_id)
+    return {"gastos_tickets_mes":sum(ticket.monto_total for ticket in tickets_usuario)}
 
     
