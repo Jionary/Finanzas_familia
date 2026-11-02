@@ -27,6 +27,12 @@ def health() -> Dict[str, Any]:
 def get_resumen(mes: int, ano: int) -> Dict[str,Any]:
     return resumen.resumen_mensual(mes=mes, ano=ano)
 
+
+@app.get("/api/v1/resumen/usuario/{usuario_id}")
+def get_resumen_usuario(mes: int, ano: int, usuario_id: int) -> Dict[str, Any]:
+    return resumen.resumen_mensual_usuario(mes=mes, ano=ano, usuario_id=usuario_id)
+
+
 @app.get("/api/v1/tickets/{ticket_id}")
 def obtener_por_id(ticket_id: int) -> Dict[str, Any]:
     ticket_obtenido = ticket_repo.obtener_por_id(ticket_id)
@@ -50,14 +56,5 @@ def crear_ticket(ticket_in: TicketCreate) -> Dict[str,Any]:
     ticket_id = ticket_repo.guardar(ticket_guardar)
     return {"Tu ticket se guardo con éxito y tiene el id" : ticket_id}
 
-@app.get("/api/v1/gastos-fijos/usuario/{usuario_id}")
-def traer_gastos_usuario(usuario_id: int) -> Dict[str, Any]:
-    gastos_usuario = gastos_repo.obtener_gastos_usuario(usuario_id)
-    return {"gastos_fijos_mensuales": sum(gasto_usuario.monto for gasto_usuario in gastos_usuario)}
-
-@app.get("/api/v1/tickets/usuario/{usuario_id}")
-def traer_tickets_usuario(usuario_id:int) -> Dict[str, Any]:
-    tickets_usuario = ticket_repo.obtener_tickets_usuario(usuario_id)
-    return {"gastos_tickets_mes":sum(ticket.monto_total for ticket in tickets_usuario)}
 
     

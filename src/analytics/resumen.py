@@ -6,7 +6,7 @@ class ResumenService:
     def __init__(self) -> None:
         self.ticket_repository = TicketRepository()
         self.gasto_fijo_repository = GastoFijoRepository()
-
+        
     def resumen_mensual(self, mes:int, ano: int) -> Dict[str, Any]:
         resumen_mensual_fijo = 0
         resumen_mensual_tickets = 0
@@ -24,6 +24,27 @@ class ResumenService:
             "Gastos_Tickets": resumen_mensual_tickets,
             "Total_general": resumen_mensual
         }
+    
+    def resumen_mensual_usuario(self, mes:int, ano: int, usuario_id: int) -> Dict[str, Any]:
+        resumen_mensual_fijo_usuario = 0
+        resumen_mensual_ticket_usuario = 0
+        resumen_mensual_total_usuario = 0
+        for ticket in self.ticket_repository.obtener_por_mes_usuario(mes, ano, usuario_id):
+            resumen_mensual_ticket_usuario += ticket.monto_total
+        
+        for gasto in self.gasto_fijo_repository.obtener_gastos_usuario(self, usuario_id):
+            resumen_mensual_fijo_usuario += gasto.monto
+        
+        resumen_mensual_total_usuario = resumen_mensual_fijo_usuario + resumen_mensual_ticket_usuario
+        return {
+            "Mes": mes,
+            "Año": ano,
+            "Gastos_Fijos": resumen_mensual_fijo_usuario,
+            "Gastos_Tickets": resumen_mensual_ticket_usuario,
+            "Total_usuario": resumen_mensual_total_usuario
+        }
+
+
     
 if __name__ == "__main__":
     resumen = ResumenService()

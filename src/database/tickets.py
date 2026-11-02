@@ -69,6 +69,19 @@ class TicketRepository:
             ticket_id = ticket[0]
             tickets_usuario.append(self.obtener_por_id(ticket_id))
         return tickets_usuario
+    
+    def obtener_por_mes_usuario(self, mes:int, ano:int, usuario_id: int) ->List[Ticket]:
+        with get_connection() as conn:
+            patron_fecha = f"{ano}-{mes:02d}-%"
+            consulta_tickets_mes_usuario = conn.execute("SELECT id FROM tickets WHERE fecha LIKE ? and usuario_id = ?", (patron_fecha, usuario_id))
+            tickets_mes_usuario_extraidos = consulta_tickets_mes_usuario.fetchall()
+        
+        tickets_mes_usuario = []
+        for ticket in tickets_mes_usuario_extraidos:
+            ticket_id = ticket[0]
+            tickets_mes_usuario.append(self.obtener_por_id(ticket_id))
+        return tickets_mes_usuario
+
 
 
 if __name__ == "__main__":
