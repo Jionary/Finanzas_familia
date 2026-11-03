@@ -4,8 +4,60 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
     <title>Página de registros</title>
   </head>
-  <body></body>
+  <body>
+    <div id="Ticket-header">
+      <input
+        type="text"
+        name="Establecimiento"
+        placeholder="Escribe el establecimiento del ticket"
+        id="Input-establecimiento"
+      />
+      <input
+        type="date"
+        name="Fecha"
+        placeholder="Fecha del ticket registrado"
+        id="Input-fecha-ticket"
+      />
+      <input
+        type="text"
+        name="Notas"
+        placeholder="Agregue cualquier nota necesaria (Opcional)"
+        id="Input-notas"
+      />
+      <div id="Contenedor-items">
+        <div class="Fila-items">
+          <input
+            type="text"
+            name="Concepto"
+            placeholder="Ingrese el concepto"
+            class="Input-concepto"
+          />
+          <input
+            type="number"
+            name="Cantidad"
+            placeholder="Ingrese la cantidad"
+            class="Input-cantidad"
+          />
+          <input
+            type="number"
+            name="Precio_unitario"
+            placeholder="Ingrese el precio unitario"
+            class="Input-precio-unitario"
+          />
+          <input
+            type="number"
+            name="Categoria"
+            placeholder="Ingrese la categoria"
+            class="Input-categoria"
+          />
+          <button id="btn-borrar-item">Borrar item</button>
+        </div>
+      </div>
+      <button class="btn-agg-item">Agregar item</button>
+    </div>
+    <button id="btn-registro">Registrar</button>
+    <script src="registro.js"></script>
+  </body>
 </html>
