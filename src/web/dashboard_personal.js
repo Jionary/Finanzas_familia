@@ -1,6 +1,8 @@
 async function dashboardPersonal() {
-  let ruta_usuario = 0;
-  const rutaApiUsuario = `http://localhost:8000/api/v1/resumen/usuario/${localStorage.usuario_id}`;
+  const hoy = new Date();
+  const mesActual = hoy.getMonth() + 1;
+  const anoActual = hoy.getFullYear();
+  const rutaApiUsuario = `http://localhost:8000/api/v1/resumen/usuario/${localStorage.usuario_id}?mes=${mesActual}&ano=${anoActual}`;
   const tituloDashboardPersonal = document.getElementById(
     "Titulo-dashboard-personal"
   );
@@ -12,14 +14,12 @@ async function dashboardPersonal() {
     tituloDashboardPersonal.textContent = "Bienvendio Jio";
   }
   let data = await fetch(rutaApiUsuario);
-  let gastosTotalesPersonales =
-    dataJson_tickets["gastos_tickets_mes"] +
-    dataJson_gastos["gastos_fijos_mensuales"];
+  let dataJson = await data.json();
   document.getElementById("Total-personal").innerText =
-    "$" + gastosTotalesPersonales;
+    "$" + dataJson.Total_usuario;
   document.getElementById("Gastos-fijos-personales").innerText =
-    "$" + dataJson_gastos.gastos_fijos_mensuales;
+    "$" + dataJson.Gastos_Fijos;
   document.getElementById("Gastos-tickets-personales").innerText =
-    "$" + dataJson_tickets.gastos_tickets_mes;
+    "$" + dataJson.Gastos_Tickets;
 }
 dashboardPersonal();

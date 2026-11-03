@@ -32,7 +32,7 @@ class ResumenService:
         for ticket in self.ticket_repository.obtener_por_mes_usuario(mes, ano, usuario_id):
             resumen_mensual_ticket_usuario += ticket.monto_total
         
-        for gasto in self.gasto_fijo_repository.obtener_gastos_usuario(self, usuario_id):
+        for gasto in self.gasto_fijo_repository.obtener_gastos_usuario(usuario_id):
             resumen_mensual_fijo_usuario += gasto.monto
         
         resumen_mensual_total_usuario = resumen_mensual_fijo_usuario + resumen_mensual_ticket_usuario
