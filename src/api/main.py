@@ -4,6 +4,7 @@ from typing import Dict, Any
 from src.models.tickets import Ticket, Item
 from src.database.tickets import TicketRepository
 from src.database.gastos_fijos import GastoFijoRepository
+from src.database.categories import CategoriesRepository
 from src.api.schemas.tickets import TicketCreate
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -18,6 +19,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"],
 resumen = ResumenService()
 ticket_repo = TicketRepository()
 gastos_repo = GastoFijoRepository()
+categorias_repo = CategoriesRepository()
 
 @app.get("/")
 def health() -> Dict[str, Any]:
@@ -38,6 +40,11 @@ def obtener_por_id(ticket_id: int) -> Dict[str, Any]:
     ticket_obtenido = ticket_repo.obtener_por_id(ticket_id)
     return {"Tu ticket obtenido fue: ": ticket_obtenido}
 
+@app.get("/api/v1/categorias")
+def obtener_todas_categorias() -> Dict[str, Any]:
+    categorias_obtenidas = categorias_repo.obtener_todas()
+    return {"Tus categorias son: ": categorias_obtenidas}
+
 @app.post("/api/v1/tickets") 
 def crear_ticket(ticket_in: TicketCreate) -> Dict[str,Any]:
     items = []
@@ -55,6 +62,8 @@ def crear_ticket(ticket_in: TicketCreate) -> Dict[str,Any]:
         items=items)
     ticket_id = ticket_repo.guardar(ticket_guardar)
     return {"Tu ticket se guardo con éxito y tiene el id" : ticket_id}
+
+
 
 
     

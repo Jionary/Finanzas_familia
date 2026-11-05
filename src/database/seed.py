@@ -10,8 +10,13 @@ def poblar_datos_iniciales():
             ("Salud", "GASTO"),
             ("Sueldo", "INGRESO")
         ]
-        conn.executemany("INSERT INTO usuarios (nombre) VALUES (?)", usuarios)
-        conn.executemany("INSERT INTO categorias (nombre, tipo) VALUES (?, ?)", categorias)
+        categorias_2 = {
+            ("Renta", "GASTO"),
+            ("Otros", "GASTO")
+        }
+        """conn.executemany("INSERT INTO usuarios (nombre) VALUES (?)", usuarios)
+        conn.executemany("INSERT INTO categorias (nombre, tipo) VALUES (?, ?)", categorias)"""
+        conn.executemany("INSERT INTO categorias (nombre, tipo) VALUES (?, ?)", categorias_2)
 
 def verificar_datos():
     with get_connection() as conn:
@@ -26,9 +31,18 @@ def verificar_datos():
 
 def modificar_datos():
     with get_connection() as conn:
-        conn.execute("UPDATE categorias SET tipo = ? WHERE nombre = ?", ("INGRESO", "Sueldo"))
+        #conn.execute("UPDATE categorias SET tipo = ? WHERE nombre = ?", ("INGRESO", "Sueldo"))
+        """conn.execute("UPDATE categorias SET id = 7 WHERE id = 9")
+        conn.execute("UPDATE categorias SET id = 8 WHERE id = 10")"""
+        conn.execute("UPDATE sqlite_sequence SET seq = 8 WHERE name = 'categorias'")
+
+def delete_datos():
+    with get_connection() as conn:
+        conn.execute("DELETE FROM categorias WHERE id IN (1,2,3,4,5,6,9,10)")
 
 if __name__ == "__main__":
-    #poblar_datos_iniciales()
+   #poblar_datos_iniciales()
     modificar_datos()
-    verificar_datos()
+    #verificar_datos()
+   #delete_datos()
+   

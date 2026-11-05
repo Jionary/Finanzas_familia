@@ -7,57 +7,76 @@
     <title>Página de registros</title>
   </head>
   <body>
-    <div id="Ticket-header">
+    <div id="Ticket-header" class="flex flex-col gap-4 p-4 max-w-2xl mx-auto">
       <input
         type="text"
         name="Establecimiento"
         placeholder="Escribe el establecimiento del ticket"
         id="Input-establecimiento"
+        class="border border-gray-300 rounded px-3 py-2 w-full focus:outline-blue-500"
       />
       <input
         type="date"
         name="Fecha"
         placeholder="Fecha del ticket registrado"
         id="Input-fecha-ticket"
+        class="border border-gray-300 rounded px-3 py-2 w-full focus:outline-blue-500"
       />
       <input
         type="text"
         name="Notas"
         placeholder="Agregue cualquier nota necesaria (Opcional)"
         id="Input-notas"
+        class="border border-gray-300 rounded px-3 py-2 w-full focus:outline-blue-500"
       />
-      <div id="Contenedor-items">
-        <div class="Fila-items">
+      <div
+        id="Contenedor-items"
+        class="flex flex-col gap-4 p-4 max-w-2xl mx-auto"
+      >
+        <div class="Fila-items flex flex-col gap-4 p-4 max-w-2xl mx-auto">
           <input
             type="text"
             name="Concepto"
             placeholder="Ingrese el concepto"
-            class="Input-concepto"
+            class="Input-concepto border border-gray-300 rounded px-3 py-2 w-full focus:outline-blue-500"
           />
           <input
             type="number"
             name="Cantidad"
             placeholder="Ingrese la cantidad"
-            class="Input-cantidad"
+            class="Input-cantidad border border-gray-300 rounded px-3 py-2 w-full focus:outline-blue-500"
           />
           <input
             type="number"
             name="Precio_unitario"
             placeholder="Ingrese el precio unitario"
-            class="Input-precio-unitario"
+            class="Input-precio-unitario border border-gray-300 rounded px-3 py-2 w-full focus:outline-blue-500"
           />
-          <input
+          <select
             type="number"
             name="Categoria"
             placeholder="Ingrese la categoria"
-            class="Input-categoria"
-          />
-          <button id="btn-borrar-item">Borrar item</button>
+            class="Input-categoria border border-gray-300 rounded px-3 py-2 w-full focus:outline-blue-500"
+          ></select>
+          <button
+            class="btn-borrar-item bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+          >
+            Borrar item
+          </button>
         </div>
       </div>
-      <button class="btn-agg-item">Agregar item</button>
+      <button
+        class="btn-agg-item bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+      >
+        Agregar item
+      </button>
     </div>
-    <button id="btn-registro">Registrar</button>
+    <button
+      id="btn-registro"
+      class="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+    >
+      Registrar
+    </button>
     <script src="registro.js"></script>
   </body>
 </html>
