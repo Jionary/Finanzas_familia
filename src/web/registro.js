@@ -8,6 +8,7 @@ contenedor.addEventListener("click", function (event) {
     event.target.closest(".Fila-items").remove();
   }
 });
+let opcionesGlobales = "";
 
 async function registro() {
   const rutaApiPostTicket = `http://localhost:8000/api/v1/tickets`;
@@ -68,7 +69,7 @@ function addDivToRegisterItem() {
             name="Categoria"
             placeholder="Ingrese la categoria"
             class="Input-categoria border border-gray-300 rounded px-3 py-2 w-full focus:outline-blue-500"
-          ></select>
+          >${opcionesGlobales}</select>
           <button
             class="btn-borrar-item bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
           >
@@ -81,5 +82,11 @@ function addDivToRegisterItem() {
 async function drawCategories() {
   rutaApiCategorias = `http://localhost:8000/api/v1/categorias`;
   let dataCategorias = await fetch(rutaApiCategorias);
-  let dataJsonCategorias = dataCategorias.json();
+  let dataJsonCategorias = await dataCategorias.json();
+  console.log(dataJsonCategorias);
+  for (let categoria of dataJsonCategorias["Tus categorias son: "]) {
+    opcionesGlobales += `<option value="${categoria.id}">${categoria.nombre}</option>`;
+  }
+  document.querySelector(".Input-categoria").innerHTML = opcionesGlobales;
 }
+drawCategories();
