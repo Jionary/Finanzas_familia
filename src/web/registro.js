@@ -1,15 +1,27 @@
+//Botones
 const btnRegistro = document.getElementById("btn-registro");
 btnRegistro.addEventListener("click", registro);
 const btnAddItem = document.querySelector(".btn-agg-item");
 btnAddItem.addEventListener("click", addDivToRegisterItem);
+//Contenedor de los items mas event listener para borrar
 const contenedor = document.getElementById("Contenedor-items");
 contenedor.addEventListener("click", function (event) {
   if (event.target.classList.contains("btn-borrar-item")) {
     event.target.closest(".Fila-items").remove();
   }
 });
+//Opciones para insertar al select de categorias
 let opcionesGlobales = "";
-
+//Traigo el usuario id para definir los colores del dashboard
+const usuarioId = localStorage.getItem("usuario_id") || "4";
+const temasPorUsuario = {
+  1: "bg-red-500 hover:bg-red-600",
+  2: "bg-purple-500 hover:bg-purple-600",
+  3: "bg-blue-500 hover:bg-blue-600",
+  4: "bg-black hover:bg-gray-900",
+};
+const temaUsuario = temasPorUsuario[usuarioId] || temasPorUsuario["4"];
+//Funcion principal para guardar el registro del ticket
 async function registro() {
   const rutaApiPostTicket = `http://localhost:8000/api/v1/tickets`;
   let establecimiento = document.getElementById("Input-establecimiento").value;
@@ -41,7 +53,7 @@ async function registro() {
   };
   console.log(dataToRegisterTicket);
 }
-
+//Funcion para clonar el html cada que se quiera agregar un item
 function addDivToRegisterItem() {
   contenedor.insertAdjacentHTML(
     "beforeend",
@@ -71,14 +83,14 @@ function addDivToRegisterItem() {
             class="Input-categoria border border-gray-300 rounded px-3 py-2 w-full focus:outline-blue-500"
           >${opcionesGlobales}</select>
           <button
-            class="btn-borrar-item bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+            class="btn-borrar-item col-span-2 md:col-span-4 w-full ${temaUsuario} text-white font-bold py-2 px-4 rounded"
           >
             Borrar item
           </button>
         </div>`
   );
 }
-
+//Funcion para pintar las categorias trayendolas desde el backend
 async function drawCategories() {
   rutaApiCategorias = `http://localhost:8000/api/v1/categorias`;
   let dataCategorias = await fetch(rutaApiCategorias);
@@ -89,4 +101,18 @@ async function drawCategories() {
   }
   document.querySelector(".Input-categoria").innerHTML = opcionesGlobales;
 }
+//Fucnion que cambia los colores de manera dinamica segun el usuario_id
+function aplicarEstilosDinamicos() {
+  if (btnRegistro) {
+    btnRegistro.className = `w-full text-white font-bold py-2 px-4 rounded shadow transition-colors duration-200 ${temaUsuario}`;
+  }
+  if (btnAddItem) {
+    btnAddItem.className = `btn-agg-item w-full text-white font-bold py-2 px-4 rounded shadow transition-colors duration-200 ${temaUsuario}`;
+  }
+  document.querySelectorAll(".btn-borrar-item").forEach((btn) => {
+    btn.className = `btn-borrar-item col-span-2 md:col-span-4 w-full text-white font-bold py-2 px-6 rounded transition-colors duration-200 ${temaUsuario}`;
+  });
+}
+//Llamado de funciones
 drawCategories();
+aplicarEstilosDinamicos();
