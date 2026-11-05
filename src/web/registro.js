@@ -52,6 +52,18 @@ async function registro() {
     items: itemsArray,
   };
   console.log(dataToRegisterTicket);
+  let headerEnvio = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(dataToRegisterTicket),
+  };
+  respuestaPost = await fetch(rutaApiPostTicket, headerEnvio);
+  if (respuestaPost.ok) {
+    alert("Se ha regitsrado correctamente el ticket");
+  }
+  alert("No se registró correctamente ");
 }
 //Funcion para clonar el html cada que se quiera agregar un item
 function addDivToRegisterItem() {
