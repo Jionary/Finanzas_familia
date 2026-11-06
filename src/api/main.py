@@ -56,7 +56,7 @@ def crear_ticket(ticket_in: TicketCreate) -> Dict[str,Any]:
             categoria_id=item.categoria_id
             ))
     ticket_guardar = Ticket(
-        usuario_id=1,
+        usuario_id=ticket_in.usuario_id,
         establecimiento=ticket_in.establecimiento,
         fecha=ticket_in.fecha,
         items=items)

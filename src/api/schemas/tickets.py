@@ -8,6 +8,7 @@ class ItemCreate(BaseModel):
     precio_unitario: float
     
 class TicketCreate(BaseModel):
+    usuario_id: int
     establecimiento: str
     fecha: str
     notas: Optional[str]

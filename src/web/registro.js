@@ -46,12 +46,12 @@ async function registro() {
   }
 
   let dataToRegisterTicket = {
+    usuario_id: parseInt(usuarioId),
     establecimiento: establecimiento,
     fecha: fecha,
     notas: notas,
     items: itemsArray,
   };
-  console.log(dataToRegisterTicket);
   let headerEnvio = {
     method: "POST",
     headers: {
@@ -60,10 +60,23 @@ async function registro() {
     body: JSON.stringify(dataToRegisterTicket),
   };
   respuestaPost = await fetch(rutaApiPostTicket, headerEnvio);
+  const contenedorMensajeEstado = document.getElementById("mensaje-estado");
   if (respuestaPost.ok) {
-    alert("Se ha regitsrado correctamente el ticket");
+    contenedorMensajeEstado.innerHTML = "Ticket registrado con éxito";
+    contenedorMensajeEstado.className =
+      "mt-4 text-center font-bold text-green-600";
+    setTimeout(() => {
+      contenedorMensajeEstado.innerHTML = "";
+    }, 3000);
+  } else {
+    contenedorMensajeEstado.innerHTML =
+      "Fallo al realizar el registro del ticket";
+    contenedorMensajeEstado.className =
+      "mt-4 text-center font-bold text-red-600";
+    setTimeout(() => {
+      contenedorMensajeEstado.innerHTML = "";
+    }, 3000);
   }
-  alert("No se registró correctamente ");
 }
 //Funcion para clonar el html cada que se quiera agregar un item
 function addDivToRegisterItem() {
