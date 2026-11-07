@@ -22,4 +22,21 @@ async function dashboardPersonal() {
   document.getElementById("Gastos-tickets-personales").innerText =
     "$" + dataJson.Gastos_Tickets;
 }
+
+function changeDashboardColors() {
+  const usersColors = {
+    1: "text-red-500",
+    2: "text-purple-500",
+    3: "text-blue-500",
+    4: "text-black",
+  };
+  const userColor = usersColors[localStorage.usuario_id] || usersColors["4"];
+
+  const textsGastosTotales = document
+    .querySelectorAll(".titulo-color-dinamico-db-personal")
+    .forEach((text) => {
+      text.className = `text-xs font-semibold uppercase tracking-wider ${userColor}`;
+    });
+}
+changeDashboardColors();
 dashboardPersonal();
