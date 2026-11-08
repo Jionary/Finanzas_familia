@@ -2,10 +2,12 @@ from fastapi import FastAPI
 from src.analytics.resumen import ResumenService
 from typing import Dict, Any
 from src.models.tickets import Ticket, Item
+from src.models.gastos_fijos import GastoFijo
 from src.database.tickets import TicketRepository
 from src.database.gastos_fijos import GastoFijoRepository
 from src.database.categories import CategoriesRepository
 from src.api.schemas.tickets import TicketCreate
+from src.api.schemas.gastos_fijos import GastoCreate
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -63,6 +65,18 @@ def crear_ticket(ticket_in: TicketCreate) -> Dict[str,Any]:
     ticket_id = ticket_repo.guardar(ticket_guardar)
     return {"Tu ticket se guardo con éxito y tiene el id" : ticket_id}
 
+@app.post("/api/v1/gastos")
+def crear_gasto(gasto_in: GastoCreate) -> Dict[str, Any]:
+    gasto_guardar = GastoFijo(
+        usuario_id=gasto_in.usuario_id,
+        categoria_id=gasto_in.categoria_id,
+        concepto=gasto_in.concepto,
+        monto=gasto_in.monto,
+        dia_pago=gasto_in.dia_pago,
+        frecuencia=gasto_in.frecuencia,
+        activo=1)
+    gasto_id = gastos_repo.registrar_gasto(gasto_guardar)
+    return {"Tu gasto se ha guardado con éxito y su id:" : gasto_id}
 
 
 
