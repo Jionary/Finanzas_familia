@@ -74,7 +74,7 @@ def crear_gasto(gasto_in: GastoCreate) -> Dict[str, Any]:
         monto=gasto_in.monto,
         dia_pago=gasto_in.dia_pago,
         frecuencia=gasto_in.frecuencia,
-        activo=1)
+        activo=gasto_in.activo)
     gasto_id = gastos_repo.registrar_gasto(gasto_guardar)
     return {"Tu gasto se ha guardado con éxito y su id:" : gasto_id}
 
